@@ -29,7 +29,7 @@ public class Alphabet{
                         else if(let.charAt(0) < (char)33) throw new AlphabetException(4);
                         else alphabet.add(let);
                     }
-                    if(alphabet.size == 0) throw new AlphabetException(5);
+                    if(alphabet.size() == 0) throw new AlphabetException(5);
                 }
                 break;
                 default: break;
@@ -44,8 +44,61 @@ public class Alphabet{
         }
         return alphabet;
     }
+    private static Pair<String,String> generateLanguages (Vector<String> alphabet){
+        int numElements= Integer.parseInt(System.console().readLine("Enter the number of elements or words to generate: "));
+        int length = Integer.parseInt(System.console().readLine("Enter the length of the language: "));
+
+        Vector<String> language1 = new Vector<String>();
+        Vector<String> language2 = new Vector<String>();
+
+        for(int i=0; i<numElements; i++){
+            String word1 = "";
+            String word2 = "";
+            for(int j = 0, ran1 = 0, ran2 = 0 ; j < length ; j++, ran1 = 0, ran2 = 0, word1 += alphabet.elementAt(ran1),word2 += alphabet.elementAt(ran2));
+        }
+        return new Pair(language1,language2);
+    }
+    private static Boolean verifyString(String string, Map<String,Boolean> alphabet){
+        for(int i = 0 ; i < string.length() ; i++){
+            if(!alphabet.containsKey(String.format("%c",string.charAt(i)))) return false;
+        }
+        return true;
+    }
+    private static String setString(Vector<String> alphabet){
+        String string = "";
+        Boolean check = false;
+        do{
+            try{
+                string = System.console().readLine("Type a string: ");
+                Map<String,Boolean> map = new HashMap<String,Boolean>();
+                for(int i = 0 ; i < alphabet.size() ; map.put(alphabet.elementAt(i),true),i++);
+                check = verifyString(string, map);
+                if(string.length() == 0) throw new AlphabetException(8);
+                if(!check) throw new AlphabetException(7);
+            }catch(AlphabetException ex){
+                System.out.println(ex.exception());
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+        }while(!check);
+        return string;
+    }
     public static void main(String[] args) {
+        //Punto 1 completo
         Vector<String> alphabet = createAlphabet();
+        //Punto 2 en desarrollo
+        String str1 = setString(alphabet), str2 = setString(alphabet);
+        //Punto 4 en desarrollo develop
+        //Pair<String,String> languages = generateLanguages();
+    }
+    
+}
+class Pair<Type1,Type2> {
+    public Type1 first;
+    public Type2 second;
+    public Pair(Type1 first, Type2 second){
+        this.first = first;
+        this.second = second;
     }
 }
 class AlphabetException extends Exception{
@@ -64,8 +117,9 @@ class AlphabetException extends Exception{
             case 4: this.message = "The initial part range cant not be lower\n"; break;
             case 5: this.message = "Can not create correctly the alphabet\n"; break;
             case 6: this.message = "The alphabet size must be higher than 3 symbols\n"; break;
+            case 7: this.message = "The string to compare must exist in the alphabet\n"; break;
+            case 8: this.message = "The string to compare must have at least one character\n"; break;
             default: this.message = "Unhandled exception"; break;
         }
-        this.message += "Creating default alphabet...\n";
     }
 }
