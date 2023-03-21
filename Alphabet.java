@@ -136,21 +136,22 @@ public class Alphabet{
             if(i == pSize && j == sSize){
                 cont = 1;
             }else{
-                String prefix = "", suffix = "", subString = "";
+                String prefix = "", suffix = "", subString = "", temp = "";
                 if(i < pSize) prefix = prefixes.elementAt(i);
                 if(j < sSize) suffix = suffixes.elementAt(j);
                 if(prefix.length() > 0){
                     for(int k = 0 ; j < w1.length() ; k++){
-                        if(prefix.charAt(k) != w1.charAt(k)) subString += w1.charAt(k);
+                        if(prefix.charAt(k) != w1.charAt(k)) temp += w1.charAt(k);
                     }
                 }
-                if(subString.length() > 0){
+                if(temp.length() > 0){
                     if(suffix.length() > 0){
-                        for(int k = 0 , n = w1.length() - 1; k < suffix.length() ; k++){
-                            
+                        for(int k = 0 , n = temp.length() - 1; n > 0 ; k++, n--){
+                            if(suffix.charAt(k) == temp.charAt(n)) subString += temp.charAt(n);
                         }
                     }
                 }
+                subStrings.add(subString);
             }
         }
         return subStrings;
