@@ -83,11 +83,87 @@ public class Alphabet{
         }while(!check);
         return string;
     }
+    private static Vector<String> getPrefixes(String w1, int proper){
+        Vector<String> prefixes = new Vector<String>();
+        for(int i = 0 ; i < w1.length() ; i++){
+            String prefix = "";
+            for(int j = 0 ; j < i ; j++){
+                prefix += w1.charAt(j);
+            }
+            prefixes.add(prefix);
+        }
+        if(proper == 0){
+            prefixes.add(w1);
+            prefixes.add("lambda");
+            return prefixes;
+
+        }else{
+            return prefixes;
+        }
+    }
+    private static Vector<String> getSuffixes(String w1, int proper){
+        Vector<String> suffixes = new Vector<String>();
+        for(int i = w1.length() - 1 ; i > 0 ; i--){
+            String suffix = "";
+            for(int j =  w1.length() - 1 ; j >= i ; j--){
+                suffix += w1.charAt(j);
+            }
+            suffixes.add(suffix);
+        }
+        if(proper == 0){
+            StringBuilder temp = new StringBuilder();
+            temp.append(w1);
+            temp.reverse();
+            suffixes.add(temp.toString());
+            suffixes.add("lambda");
+            return suffixes;
+
+        }else{
+            StringBuilder temp = new StringBuilder();
+            temp.append(w1);
+            temp.reverse();
+            String t = temp.toString();
+            if(!t.equals(w1)){
+                suffixes.add(temp.toString());
+            }
+            return suffixes;
+        }
+    }
+    private static Vector<String> getSubStrings(String w1,Vector<String> prefixes, Vector<String> suffixes, int proper){
+        Vector<String> subStrings = new Vector<String>();
+        //Deleting the suffixes
+        for(int i = 0 , j = 0, pSize = prefixes.size(), sSize = suffixes.size(), cont = 0; cont == 0 ; i++, j++){
+            if(i == pSize && j == sSize){
+                cont = 1;
+            }else{
+                String prefix = "", suffix = "", subString = "";
+                if(i < pSize) prefix = prefixes.elementAt(i);
+                if(j < sSize) suffix = suffixes.elementAt(j);
+                if(prefix.length() > 0){
+                    for(int k = 0 ; j < w1.length() ; k++){
+                        if(prefix.charAt(k) != w1.charAt(k)) subString += w1.charAt(k);
+                    }
+                }
+                if(subString.length() > 0){
+                    if(suffix.length() > 0){
+                        for(int k = 0 , n = w1.length() - 1; k < suffix.length() ; k++){
+                            
+                        }
+                    }
+                }
+            }
+        }
+        return subStrings;
+    }
     public static void main(String[] args) {
         //Punto 1 completo
         Vector<String> alphabet = createAlphabet();
         //Punto 2 en desarrollo
         String str1 = setString(alphabet), str2 = setString(alphabet);
+        Vector<String> unProperPreffixes = getPrefixes(str1, 0), properPreffixes = getPrefixes(str1,1),unProperSuffixes = getSuffixes(str1, 0), properSuffixes=getSuffixes(str1, 1);
+        Vector<String> subStrings = getSubStrings(str1, unProperPreffixes, unProperSuffixes, 0);
+        for(String i : subStrings) System.out.println(i);
+
         //Punto 4 en desarrollo develop
         //Pair<String,String> languages = generateLanguages();
     }
