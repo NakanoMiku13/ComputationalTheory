@@ -140,8 +140,8 @@ public class Alphabet{
                 if(i < pSize) prefix = prefixes.elementAt(i);
                 if(j < sSize) suffix = suffixes.elementAt(j);
                 if(prefix.length() > 0){
-                    for(int k = 0 ; j < w1.length() ; k++){
-                        if(prefix.charAt(k) != w1.charAt(k)) temp += w1.charAt(k);
+                    for(int k = 0 ; k < w1.length() ; k++){
+                        if(prefix.length() < k) if(prefix.charAt(k) != w1.charAt(k)) temp += w1.charAt(k);
                     }
                 }
                 if(temp.length() > 0){
