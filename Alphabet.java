@@ -131,30 +131,24 @@ public class Alphabet{
     }
     private static Vector<String> getSubStrings(String w1,Vector<String> prefixes, Vector<String> suffixes, int proper){
         Vector<String> subStrings = new Vector<String>();
-        //Deleting the suffixes
-        for(int i = 0 , j = 0, pSize = prefixes.size(), sSize = suffixes.size(), cont = 0; cont == 0 ; i++, j++){
-            if(i == pSize && j == sSize){
-                cont = 1;
-            }else{
-                String prefix = "", suffix = "", subString = "", temp = "";
-                if(i < pSize) prefix = prefixes.elementAt(i);
-                if(j < sSize) suffix = suffixes.elementAt(j);
-                if(prefix.length() > 0){
-                    for(int k = 0 ; k < w1.length() ; k++){
-                        if(prefix.length() < k) if(prefix.charAt(k) != w1.charAt(k)) temp += w1.charAt(k);
-                    }
+        for(int i = 0 ; i < prefixes.size() ; i ++){
+            String prefix = prefixes.elementAt(i);
+            for(int j = 0 ; j < suffixes.size() ; j++){
+                String subString = "",suffix = suffixes.elementAt(j);
+                for(int k = 0 ; k < prefix.lenght() && k < w1.length() ; k++){
+                    if(prefix.charAt(k) == w1.charAt(k)) continue;
+                    else break;
                 }
-                if(temp.length() > 0){
-                    if(suffix.length() > 0){
-                        for(int k = 0 , n = temp.length() - 1; n > 0 ; k++, n--){
-                            if(suffix.charAt(k) == temp.charAt(n)) subString += temp.charAt(n);
-                        }
-                    }
-                }
-                subStrings.add(subString);
             }
         }
         return subStrings;
+    }
+    private static Vector<String>  getSubSequences(String w1){
+        Vector<String> subSequences = new Vector<String>();
+        for(int i = 0 ; i < w1.length() ; i++){
+            
+        }
+        return subSequences;
     }
     public static void main(String[] args) {
         //Punto 1 completo
@@ -168,7 +162,6 @@ public class Alphabet{
         //Punto 4 en desarrollo develop
         //Pair<String,String> languages = generateLanguages();
     }
-    
 }
 class Pair<Type1,Type2> {
     public Type1 first;
