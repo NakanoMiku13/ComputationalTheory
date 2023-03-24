@@ -131,20 +131,30 @@ public class Alphabet{
     }
     private static Vector<String> getSubStrings(String w1,Vector<String> prefixes, Vector<String> suffixes, int proper){
         Vector<String> subStrings = new Vector<String>();
+        Map<String,Boolean> map = new HashMap<String,Boolean>();
         for(int i = 0 ; i < prefixes.size() ; i ++){
             String prefix = prefixes.elementAt(i);
-            for(int j = 0 ; j < suffixes.size() ; j++){
-                String subString = "",suffix = suffixes.elementAt(j);
-                for(int k = 0 ; k < prefix.lenght() && k < w1.length() ; k++){
+            int k = 0;
+            for(; k < prefix.length() && k < w1.length() ; k++)
                     if(prefix.charAt(k) == w1.charAt(k)) continue;
                     else break;
-                }
+            for(int j = 0 ; j < suffixes.size() ; j++){
+                String subString = "",suffix = suffixes.elementAt(j);
+                int m = w1.length() - 1;
+                for(int n = 0; m > 0 && n < suffix.length() ; m--, n++)
+                    if(suffix.charAt(n) == w1.charAt(m)) continue;
+                    else break;
+                if(k < prefix.length()) k = 0;
+                if(m > prefix.length()) m = w1.length();
+                for(int n = k ; n < m ; n++) subString += w1.charAt(n);
+                if(!map.containsKey(subString) && !subString.equals("") && subString.length() > 0){ subStrings.add(subString); if(!subString.equals("") && subString.length() > 0) map.put(subString, true);}
             }
         }
         return subStrings;
     }
     private static Vector<String>  getSubSequences(String w1){
         Vector<String> subSequences = new Vector<String>();
+        Map<String,Boolean> map = new HashMap<String,Boolean>();
         for(int i = 0 ; i < w1.length() ; i++){
             
         }
@@ -156,7 +166,7 @@ public class Alphabet{
         //Punto 2 en desarrollo
         String str1 = setString(alphabet), str2 = setString(alphabet);
         Vector<String> unProperPreffixes = getPrefixes(str1, 0), properPreffixes = getPrefixes(str1,1),unProperSuffixes = getSuffixes(str1, 0), properSuffixes=getSuffixes(str1, 1);
-        Vector<String> subStrings = getSubStrings(str1, unProperPreffixes, unProperSuffixes, 0);
+        Vector<String> subStrings = getSubStrings(str2, unProperPreffixes, unProperSuffixes, 0);
         for(String i : subStrings) System.out.println(i);
 
         //Punto 4 en desarrollo develop
