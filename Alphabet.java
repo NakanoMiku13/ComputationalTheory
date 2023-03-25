@@ -1,5 +1,8 @@
-import java.util.*;
-import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class Alphabet{
     private static Vector<String> createAlphabet(){
         Vector<String> alphabet = new Vector<String>();
@@ -158,13 +161,13 @@ public class Alphabet{
         Map<Integer,Boolean> map2 = new HashMap<Integer,Boolean>();
         for(int i = 0, cant = 0 ; i < w1.length() ; i++, cant = (int)Math.floor(Math.random()*(w1.length()) + 1)){
             String subSequence = "";
-            int pos = (int)Math.floor(Math.random() * (w1.length()) + 1);
+            int pos = (int)Math.floor(Math.random() * (w1.length() - 1) + 1);
             while(cant > 0){
                 if(!map2.containsKey(pos)){
                     subSequence += w1.charAt(pos);
                     map2.put(pos, true);
                 }
-                pos = (int)Math.floor(Math.random() * (w1.length()) + 1);
+                pos = (int)Math.floor(Math.random() * (w1.length() - 1) + 1);
                 cant --;
             }
             if(!map.containsKey(subSequence) && !subSequence.equals("") && subSequence.length() > 0){ subSequences.add(subSequence); map.put(subSequence, true); }
@@ -201,6 +204,29 @@ public class Alphabet{
         }
         return suffixes;
     }
+    private static void regularExpression(){
+        Boolean matchFound = false;
+        do{
+            try{
+                String expression = System.console().readLine("Type a string with at least one number repeated: ");
+                if(expression.length() < 5) throw new AlphabetException(9);
+                else{
+                    for(int i = 0 ; i < 10 && !matchFound; i++){
+                        try{
+                            Pattern pattern = Pattern.compile(String.format("[0-9]*?%d[0-9]*?%d[0-9]*?",i,i));
+                            Matcher matcher = pattern.matcher(expression);
+                            matchFound = matcher.find();
+                            if(matchFound) System.out.println("The expression is correct");
+                        }catch(Exception ex){
+                            System.out.println(ex.getMessage());
+                        }
+                    }
+                }
+            }catch(AlphabetException exception){
+                System.out.println(exception.exception());
+            }
+        }while(!matchFound);
+    }
     public static void main(String[] args) {
         Vector<String> alphabet = createAlphabet();
         String str1 = setString(alphabet), str2 = setString(alphabet);
@@ -222,8 +248,7 @@ public class Alphabet{
         for(String subString: subStrings) System.out.println(subString);
         System.out.println("SubSequence:");
         for(String subSequence: subSequences) System.out.println(subSequence);
-        //Punto 4 en desarrollo develop
-        //Pair<String,String> languages = generateLanguages();
+        regularExpression();
     }
 }
 class Pair<Type1,Type2> {
@@ -252,6 +277,7 @@ class AlphabetException extends Exception{
             case 6: this.message = "The alphabet size must be higher than 3 symbols\n"; break;
             case 7: this.message = "The string to compare must exist in the alphabet\n"; break;
             case 8: this.message = "The string to compare must have at least one character\n"; break;
+            case 9: this.message = "The string to compare must have at least 5 characters\n"; break;
             default: this.message = "Unhandled exception"; break;
         }
     }
