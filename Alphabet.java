@@ -129,7 +129,7 @@ public class Alphabet{
             return suffixes;
         }
     }
-    private static Vector<String> getSubStrings(String w1,Vector<String> prefixes, Vector<String> suffixes, int proper){
+    private static Vector<String> getSubStrings(String w1,Vector<String> prefixes, Vector<String> suffixes){
         Vector<String> subStrings = new Vector<String>();
         Map<String,Boolean> map = new HashMap<String,Boolean>();
         for(int i = 0 ; i < prefixes.size() ; i ++){
@@ -155,20 +155,73 @@ public class Alphabet{
     private static Vector<String>  getSubSequences(String w1){
         Vector<String> subSequences = new Vector<String>();
         Map<String,Boolean> map = new HashMap<String,Boolean>();
-        for(int i = 0 ; i < w1.length() ; i++){
-            
+        Map<Integer,Boolean> map2 = new HashMap<Integer,Boolean>();
+        for(int i = 0, cant = 0 ; i < w1.length() ; i++, cant = (int)Math.floor(Math.random()*(w1.length()) + 1)){
+            String subSequence = "";
+            int pos = (int)Math.floor(Math.random() * (w1.length()) + 1);
+            while(cant > 0){
+                if(!map2.containsKey(pos)){
+                    subSequence += w1.charAt(pos);
+                    map2.put(pos, true);
+                }
+                pos = (int)Math.floor(Math.random() * (w1.length()) + 1);
+                cant --;
+            }
+            if(!map.containsKey(subSequence) && !subSequence.equals("") && subSequence.length() > 0){ subSequences.add(subSequence); map.put(subSequence, true); }
         }
         return subSequences;
     }
+    private static Vector<String> existPrefixes(Vector<String> prefixesI, String w1){
+        Vector<String> prefixes = new Vector<String>();
+        for(String prefix : prefixesI){
+            Boolean temp = true;
+            for(int i = 0 ; i < prefix.length(); i++){
+                if(prefix.charAt(i) == w1.charAt(i)) continue;
+                else{
+                    temp = false;
+                    break;
+                }
+            }
+            if(temp) prefixes.add(prefix);
+        }
+        return prefixes;
+    }
+    private static Vector<String> existSuffixes(Vector<String> suffixesI,String w1){
+        Vector<String> suffixes = new Vector<String>();
+        for(String suffix : suffixesI){
+            Boolean temp = true;
+            for(int i = 0 ; i < suffix.length() ; i++){
+                if(suffix.charAt(i) == w1.charAt(i)) continue;
+                else{
+                    temp = false;
+                    break;
+                }
+            }
+            if(temp) suffixes.add(suffix);
+        }
+        return suffixes;
+    }
     public static void main(String[] args) {
-        //Punto 1 completo
         Vector<String> alphabet = createAlphabet();
-        //Punto 2 en desarrollo
         String str1 = setString(alphabet), str2 = setString(alphabet);
-        Vector<String> unProperPreffixes = getPrefixes(str1, 0), properPreffixes = getPrefixes(str1,1),unProperSuffixes = getSuffixes(str1, 0), properSuffixes=getSuffixes(str1, 1);
-        Vector<String> subStrings = getSubStrings(str2, unProperPreffixes, unProperSuffixes, 0);
-        for(String i : subStrings) System.out.println(i);
-
+        Vector<String> unProperPrefixes = existPrefixes(getPrefixes(str1, 0),str2),
+        properPrefixes = existPrefixes(getPrefixes(str1,1),str2),
+        unProperSuffixes = existSuffixes(getSuffixes(str1, 0),str2),
+        properSuffixes = existSuffixes(getSuffixes(str1, 1),str2),
+        subStrings = getSubStrings(str2, unProperPrefixes, unProperSuffixes),
+        subSequences = getSubSequences(str2) ;
+        System.out.println("Un-proper Prefixes:");
+        for(String prefix: unProperPrefixes) System.out.println(prefix);
+        System.out.println("Proper Prefixes:");
+        for(String prefix: properPrefixes) System.out.println(prefix);
+        System.out.println("Un-proper Suffixes:");
+        for(String suffix: unProperSuffixes) System.out.println(suffix);
+        System.out.println("Proper Suffixes:");
+        for(String suffix: properSuffixes) System.out.println(suffix);
+        System.out.println("Substrings:");
+        for(String subString: subStrings) System.out.println(subString);
+        System.out.println("SubSequence:");
+        for(String subSequence: subSequences) System.out.println(subSequence);
         //Punto 4 en desarrollo develop
         //Pair<String,String> languages = generateLanguages();
     }
