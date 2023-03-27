@@ -44,7 +44,9 @@ public class Alphabet{
         }
         return alphabet;
     }
-    private static Pair<String,String> generateLanguages (Vector<String> alphabet){
+    //TRABAJO ERA _________________________________________________________________________________________________________
+    //firts point: genrate two languages 
+    private static Pair<Vector<String>,Vector<String>> generateLanguages (Vector<String> alphabet){
         int numElements= Integer.parseInt(System.console().readLine("Enter the number of elements or words to generate: "));
         int length = Integer.parseInt(System.console().readLine("Enter the length of the language: "));
 
@@ -54,10 +56,20 @@ public class Alphabet{
         for(int i=0; i<numElements; i++){
             String word1 = "";
             String word2 = "";
-            for(int j = 0, ran1 = 0, ran2 = 0 ; j < length ; j++, ran1 = 0, ran2 = 0, word1 += alphabet.elementAt(ran1),word2 += alphabet.elementAt(ran2));
+            for(int j = 0, ran1 = 0, ran2 = 0 ; j < length ; j++, ran1 = (int)Math.floor(Math.random()*(alphabet.size())), ran2 = (int)Math.floor(Math.random()*(alphabet.size())), word1 += alphabet.elementAt(ran1),word2 += alphabet.elementAt(ran2));
+            language1.add(word1);
+            language2.add(word2);
         }
         return new Pair(language1,language2);
     }
+    //_________________________________________
+    //second point: diference between languages
+    private Static Vector<String>{
+
+    }
+    //HEEEEEELP c:
+    
+    
     private static Boolean verifyString(String string, Map<String,Boolean> alphabet){
         for(int i = 0 ; i < string.length() ; i++){
             if(!alphabet.containsKey(String.format("%c",string.charAt(i)))) return false;
@@ -83,13 +95,24 @@ public class Alphabet{
         }while(!check);
         return string;
     }
+    //MAIN
     public static void main(String[] args) {
         //Punto 1 completo
         Vector<String> alphabet = createAlphabet();
         //Punto 2 en desarrollo
-        String str1 = setString(alphabet), str2 = setString(alphabet);
-        //Punto 4 en desarrollo develop
-        //Pair<String,String> languages = generateLanguages();
+        //String str1 = setString(alphabet), str2 = setString(alphabet);
+
+        //Punto 4 en completo    
+        Pair<Vector<String>,Vector<String>> languages = generateLanguages(alphabet);
+        Vector<String> language1= languages.first, language2= languages.second;
+        System.out.println("The firts language generated is: ");
+        for ( String i: language1 ) System.out.println ("\t" + i);
+        System.out.println("The second language generated is: ");
+        for ( String i: language2 ) System.out.println ("\t" + i);
+
+        //Punto 5 en desarrollo
+        
+
     }
     
 }
