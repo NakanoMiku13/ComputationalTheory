@@ -1,10 +1,5 @@
 import java.util.*;
 import java.io.*;
- class Pair<T1,T2>{
-	public T1 first;
-	public T2 second;
-	public Pair(T1 first, T2 second){ this.first = first; this.second = second; }
-}
 public class Compiler{
 	private static Map<String,String> dicts;
 	private static Pair<String,String> GetKeyAndValue;
@@ -24,4 +19,9 @@ public class Compiler{
 			}catch(Exception ex){}
 		}
 	}
+}
+class Pair<T1,T2>{
+	public T1 first;
+	public T2 second;
+	public Pair(T1 first, T2 second){this.first = first; this.second = second; }
 }
