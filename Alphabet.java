@@ -88,20 +88,18 @@ public class Alphabet{
         for(var i : from) to.add(i);
         return to;
     }
-    private static Vector<String> getSubAlphabet(Vector<String> alphabet, int power){
+    private static Vector<String> getSubAlphabet(String symbol,Vector<String> alphabet, int power){
         if (power == 1) return alphabet;
         else{
             Vector<String> newAlphabet = new Vector<String>();
             for(String i : alphabet){
-                String symbol = "";
-                symbol += i;
-                Vector<String> aux = getSubAlphabet(alphabet,power-1);
+                Vector<String> aux = getSubAlphabet(i,alphabet,power-1);
                 for(String j : aux){
                     symbol += j;
                     newAlphabet.add(symbol);
                 }
             }
-            return ( newAlphabet.size() == 0 ) ? alphabet : newAlphabet;
+            return newAlphabet;
             //return concat(getSubAlphabet(alphabet,power-2),getSubAlphabet(alphabet,power-1));
         }
     }
@@ -112,20 +110,16 @@ public class Alphabet{
         if(power == 0){
             return alphPower;
         }
-        /*for(String i : alphabet){
+        for(var i : alphabet){
             String symbol = "";
-            symbol += i;
-            Vector<String> aux = getSubAlphabet(alphabet,power-1);
-            for(String j : aux){
-                symbol += j;
+            var aux = getSubAlphabet(i, alphabet, power-1);
+            for(var j : aux){
+                symbol += (i+j);
                 alphPower.add(symbol);
             }
-        }*/ 
-        alphPower = getSubAlphabet(alphabet,power);
-        
+        }
         return alphPower;
     }
-    
     private static Boolean verifyString(String string, Map<String,Boolean> alphabet){
         for(int i = 0 ; i < string.length() ; i++){
             if(!alphabet.containsKey(String.format("%c",string.charAt(i)))) return false;
@@ -294,27 +288,7 @@ public class Alphabet{
         }while(!matchFound);
     }
     public static void main(String[] args) {
-        Vector<String> alphabet = createAlphabet();
-        //Punto 2 en desarrollo
-        //String str1 = setString(alphabet), str2 = setString(alphabet);
-
-        //Punto 4 en completo    
-       /*  Pair<Vector<String>,Vector<String>> languages = generateLanguages(alphabet);
-        Vector<String> language1= languages.first, language2= languages.second;
-        System.out.println("The firts language generated is: ");
-        for ( String i: language1 ) System.out.println ("\t" + i);
-        System.out.println("The second language generated is: ");
-        for ( String i: language2 ) System.out.println ("\t" + i);
-
-        //Punto 5 completo
-        Vector<String> newLanguage= diferenceLanguages (languages);
-        System.out.println("The new languaje LD of the diference between L1 and L2 is:");
-        for ( String j: newLanguage ) System.out.println ("\t" + j);
-        */
-        //sixth point in development
-        Vector<String> newPowerLanguage= powerAlphabet (alphabet);
-        System.out.println("The new alphabet is:");
-        for ( String i: newPowerLanguage ) System.out.println ("\t" + i);
+        /*Vector<String> alphabet = createAlphabet();
         String str1 = setString(alphabet), str2 = setString(alphabet);
         Vector<String> unProperPrefixes = existPrefixes(getPrefixes(str1, 0),str2),
         properPrefixes = existPrefixes(getPrefixes(str1,1),str2),
@@ -334,6 +308,21 @@ public class Alphabet{
         for(String subString: subStrings) System.out.println(subString);
         System.out.println("SubSequence:");
         for(String subSequence: subSequences) System.out.println(subSequence);
+        //Punto 4 en completo    
+        Pair<Vector<String>,Vector<String>> languages = generateLanguages(alphabet);
+        Vector<String> language1= languages.first, language2= languages.second;
+        System.out.println("The firts language generated is: ");
+        for ( String i: language1 ) System.out.println ("\t" + i);
+        System.out.println("The second language generated is: ");
+        for ( String i: language2 ) System.out.println ("\t" + i);
+
+        //Punto 5 completo
+        Vector<String> newLanguage= diferenceLanguages (languages);
+        System.out.println("The new languaje LD of the diference between L1 and L2 is:");
+        for ( String j: newLanguage ) System.out.println ("\t" + j);
+        Vector<String> newPowerLanguage= powerAlphabet(alphabet);
+        System.out.println("The new alphabet is:");
+        for ( String i: newPowerLanguage ) System.out.println ("\t" + i);*/
         regularExpression();
     }
 }
