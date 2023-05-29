@@ -14,10 +14,25 @@ public class Compiler{
 				BufferedReader buffer = new BufferedReader(reader);
 				String line;
 				while((line = buffer.readLine()) != null){
-					System.out.println(line);
+//					System.out.println(line);
+//					if(line!="{\n" && line != "}\n")
+					GetKeyValue(line);
 				}
 			}catch(Exception ex){}
 		}
+		System.out.println(dicts.size());
+	}
+	private 
+	private static void GetKeyValue(String line){
+		if(line.length() == 1) return;
+		String key="", value="";
+		int i = 0;
+		while(line.charAt(i) != '"' && i < line.length()) i++;
+		i++;
+		while(line.charAt(i) != '"' && i<line.length()){ key+=line.charAt(i); i++;}
+		i+=5;
+		while(i < line.length()){ value+=line.charAt(i); i++;}
+		dicts.put(key,value.replace(",","").replace("\"","").replace("\n",""));
 	}
 }
 class Pair<T1,T2>{
