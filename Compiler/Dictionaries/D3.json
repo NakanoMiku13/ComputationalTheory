@@ -1,11 +1,11 @@
 {
-	"int" : true,
-	"char" : true,
-	"string" : true,
-	"float" : true,
-	"double" : true,
-	"String" : true,
-	"Integer" : true,
-	"bool" : true,
-	"Boolean" : true
+    "int": "true",
+    "char": "true",
+    "string": "true",
+    "float": "true",
+    "double": "true",
+    "String": "true",
+    "Integer": "true",
+    "bool": "true",
+    "Boolean": "true"
 }

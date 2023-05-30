@@ -1,6 +1,7 @@
 {
-	"public" : "D2.json",
-	"private" : "D2.json",
-	"protected" : "D2.json",
-	"" : "private"
+    "import": "true",
+    "public": "D2.json",
+    "private": "D2.json",
+    "protected": "D2.json",
+    "L": "private"
 }
