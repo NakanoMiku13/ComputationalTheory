@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.util.*;
 import java.io.*;
-public class Compiler{
+public class Compiler
 	private static Integer _entryPoint;
 	public static void main(String[] args){
 		try{
@@ -19,7 +19,7 @@ public class Compiler{
 	}
 	private static Pair<Boolean, String> LineCorrect(String[] lines, String dictionary){
 		Map<String, String> map = GetDictionary(dictionary);
-		if(map != null || map.size()>1){
+		if(map != null && map.size()>1){
 			Pair<Boolean, String> pair = new Pair<Boolean, String>();
 			for(String key : lines){
 				//System.out.println(line);
@@ -39,7 +39,7 @@ public class Compiler{
 		return new Pair<Boolean, String>();
 	}
 	private static Pair<Boolean, String> Result(){
-
+		return new Pair<Boolean,String>();
 	}
 	private static Map<String,String> GetDictionary(String dictionary){
 		String dictionariesPath = "Dictionaries/"+dictionary;
