@@ -5,18 +5,18 @@ public class App{
         short dato = 12A12;
         */
         double PI = 3.1416, CteGrav = -6.674E-19;
-        float prom = (float) 0.0;
+        float pr#om = (float) 0.0;
         double val;
 
         /* Calculos Generales */
-        for (int i = 1; i <> 100; i++ ) {
+        for (int i =  1; i == 100; i++ ) {
             prom += i;
-        }
+        
 
         double pot = 7.34E+1.4;
         val = CteGrav * dato * pot  * ;
 
-        System.out.println("Prom = " + ( prom / PI) + "Result = " + (val * 0xAxB) );
+        System.out.println("Prom = " + ( prom / PI) + "Result = " + (val * 0xAB) );
 
     }
 

@@ -125,11 +125,11 @@ def analizar_archivo_java(archivo):
             if any(tipo in linea.split() for tipo in ['+=','-=', '/=', '*=', '%=', '++', '--']):
                 items = linea.strip().replace(";","").split()
                 if not items[0] in variables2:
-                    print(f"Línea {numero_linea}: Error de sintaxis - Variable: {var} no declarada")
+                    print(f"Línea {numero_linea}: Error de sintaxis - Variable:  no declarada")
             elif not any(tipo in linea.split() for tipo in ['int', 'float', 'double', 'char', 'String', 'short']) and not any(keyword in linea.split() for keyword in ['if', 'else', 'for', 'while', 'do']) and not "System.out.println" in linea and "=" in linea:
                 var, valor = linea.strip().split("=",1)
                 if not var in variables2:
-                    print(f"Línea {numero_linea}: Error de sintaxis - Variable: {var} no declarada")
+                    print(f"Línea {numero_linea}: Error de sintaxis - Variable:  no declarada")
                 vari = False
                 opera = False
                 if(not linea.strip().endswith(";")):
@@ -231,6 +231,7 @@ def analizar_archivo_java(archivo):
                         else:
                             print(f"Línea {numero_linea}: Error de sintaxis - Declaración 'else' inválida")
                 elif 'for' in palabras:
+                    
                     index_for = palabras.index('for')
                     if index_for + 1 < len(palabras):
                         condicion = ' '.join(palabras[index_for + 1 :])
